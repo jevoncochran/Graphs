@@ -56,6 +56,8 @@ def earliest_ancestor(ancestors, starting_node):
             if len(path_list[i]) == len(path_list[j]):
                 if path_list[i][-1] < path_list[j][-1]:
                     correct_list = path_list[i]
+                else:
+                    correct_list = path_list[j]
             else:
                 correct_list = path_list[j]
             i+=1
