@@ -1,6 +1,7 @@
 from room import Room
 from player import Player
 from world import World
+from util import Stack
 
 import random
 from ast import literal_eval
@@ -21,13 +22,31 @@ room_graph=literal_eval(open(map_file, "r").read())
 world.load_graph(room_graph)
 
 # Print an ASCII map
-world.print_rooms()
+# world.print_rooms()
 
 player = Player(world.starting_room)
 
 # Fill this out with directions to walk
-# traversal_path = ['n', 'n']
+# traversal_path = ['n', 'n', 's', 's', 'w', 'w', 'e', 'e', 'e', 'e', 'w', 'w', 's', 's']
 traversal_path = []
+visited = {}
+
+# reverse helper fn
+def reverse(direction):
+    if direction == 'n':
+        return 's'
+    if direction =='s':
+        return 'n'
+    if direction == 'w':
+        return 'e'
+    if direction == 'e':
+        return 'w'
+
+def mark_visited(cur_room, exits):
+    visited[cur_room] = {}
+    for direction in exits:
+        visited[cur_room][direction] = '?'
+
 
 
 
