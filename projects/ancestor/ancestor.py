@@ -1,13 +1,26 @@
+class Stack:
+    def __init__(self):
+        self.storage = []
 
-from util import Stack
+    def push(self, val):
+        self.storage.append(val)
+
+    def pop(self):
+        if self.size() > 0:
+            return self.storage.pop()
+        else:
+            return None
+
+    def size(self):
+        return len(self.storage)
+        
 
 class Graph:
     def __init__(self):
         self.verts = {}
-    
+
     def add_vert(self, vert_id):
-        if vert_id not in self.verts:
-            self.verts[vert_id] = set()
+        self.verts[vert_id] = set()
 
     def add_edge(self, v1, v2):
         if v1 in self.verts and v2 in self.verts:
@@ -15,6 +28,8 @@ class Graph:
 
     def get_parents(self, vert_id):
         return self.verts[vert_id]
+
+data = [(10, 1), (1, 3), (2, 3), (4, 5), (4, 8), (11, 8), (3, 6), (5, 6), (5, 7), (8,9)]
 
 def earliest_ancestor(ancestors, starting_node):
 
@@ -63,6 +78,23 @@ def earliest_ancestor(ancestors, starting_node):
             i+=1
             j+=1
         return correct_list[-1]
+
+
+# test_graph = Graph()
+# test_graph.add_vert(6)
+# test_graph.add_vert(3)
+# test_graph.add_vert(5)
+# test_graph.add_edge(6, 3)
+# test_graph.add_edge(6, 5)
+# print(test_graph.get_parents(6))
+
+earliest_ancestor(data, 6)
+
+
+
+
+    
+    
         
         
 
