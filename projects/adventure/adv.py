@@ -47,7 +47,44 @@ def mark_visited(cur_room, exits):
     for direction in exits:
         visited[cur_room][direction] = '?'
 
+def make_path(cur_room):
+    cur_room = player.current_room.id
+    cur_exits = player.current_room.get_exits()
+    prev_room = None
+    stack = Stack()
 
+    stack.push([None, cur_room, prev_room, cur_exits])
+
+    while len(visited) < len(room_graph):
+        path = stack.pop()
+        direction = path[0]
+        cur_room = path[1]
+        prev_room = path[2]
+        cur_exits = path[3]
+
+        if cur_room not in visited:
+            mark_visited(cur_room, cur_exits)
+
+        if direction is not None:
+            visited[cur_room][reverse(direction)] = prev_room
+
+        if prev_room is not None:
+            visited[prev_room][direction] = cur_room
+
+        for d in visited[cur_room].keys():
+            if visited[cur_room][d] == '?':
+                stack.push(path)
+                prev_room = player.current_room.id
+                player.travel(d)
+                traversal_path.append(d)
+                stack.push([d, player.current_room.id, prev_room, player.current_room.get_exits()])
+                break
+
+        if cur_room == player.current_room.id:
+            player.travel(reverse(direction))
+            traversal_path.append(reverse(direction))
+            
+make_path(player.current_room.id)
 
 
 # TRAVERSAL TEST
